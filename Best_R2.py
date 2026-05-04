@@ -19,7 +19,7 @@ try:
 except locale.Error:
     print("Nie udało się ustawić locale 'pl_PL.UTF-8'. Zostają ustawienia domyślne.")
 
-DATA_PATH = "/Users/serekparowka/Documents/Studia/I pracownia fizyczna/skoroszyty/T9_skoroszyt.xlsx"
+DATA_PATH = "T9_skoroszyt.xlsx"
 SHEET_NAME = "Arkusz1"
 SKIPROWS = 15
 NROWS = 125

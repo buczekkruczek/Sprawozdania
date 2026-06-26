@@ -30,18 +30,18 @@ try:
 except locale.Error:
     print("Nie udało się ustawić locale 'pl_PL.UTF-8'. Zostają ustawienia domyślne.")
 
-DATA_PATH = "/Users/serekparowka/Documents/Studia/I pracownia fizyczna/skoroszyty/T3_skoroszyt.xlsx"
-SHEET_NAME = "Arkusz1"
-SKIPROWS = 20
-NROWS = 13
+DATA_PATH = "/Users/serekparowka/Documents/Studia/I pracownia fizyczna/skoroszyty/T8_skoroszyt.xlsx"
+SHEET_NAME = "Dane"
+SKIPROWS = 795
+NROWS = 5751
 OUTPUT_DIR = "/Users/serekparowka/Documents/Studia/I pracownia fizyczna/grafiki"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 USE_CUSTOM_SERIES = None
 CONFIGS = [
     {
-        "usecols": [7, 11],
-        "title": r"Zlinearyzowana zależność $y_4$  od $x_n$ [$^\circ$C]",
-        "filename": "T3_plot4.pdf",
+        "usecols": [3, 5],
+        "title": r"Zlinearyzowana zależność $\Delta T$ [$^\circ$C]  od $\Delta E$ [J]",
+        "filename": "T8_plot14.pdf",
 
         "series": [
             {
@@ -57,11 +57,11 @@ CONFIGS = [
 ]
 
 FIT_MODE = "manual"
-MANUAL_MODEL_ALL = "Liniowa bez wyrazu wolnego"
+MANUAL_MODEL_ALL = "Liniowa"
 MANUAL_MODELS_PER_SERIES = []
 
-X_LABEL = r"Wartość $x_n$ [$^\circ$C]"
-Y_LABEL = r"Wartość $y_4$ "
+X_LABEL = r"Wartość $\Delta T$ [$^\circ$C]"
+Y_LABEL = r"Wartość $\Delta E$ [J]"
 
 SHOW_CLOSEST_POINTS = False
 MAX_CLOSEST_POINTS_PER_PAIR = 2
@@ -529,7 +529,7 @@ for config in CONFIGS:
         else:
             # fallback – ręcznie ustawiasz dla kolejnych serii
             if i == 0:
-                color = (204/255,230/255,230/255)
+                color = "orangered"
             elif i == 1:
                 color = "red"
             elif i == 2:
@@ -540,18 +540,18 @@ for config in CONFIGS:
                 color = "black"  # default jak przekroczysz zakres
         
             linestyle = "-"
-            linewidth = 10
+            linewidth = 15
             zorder_points = 2
             zorder_line = 3
 
         plt.scatter(
             series["x"],
             series["y"],
-            s=1500,
+            s=100,
             marker="o",
-            facecolors=  (0.800, 0.902, 0.800),
-            edgecolors="black",
-            linewidths=1.2,
+            facecolors=  "skyblue",
+            edgecolors="steelblue",
+            linewidths=0.5,
             zorder=zorder_points,
             label=f"{series['label']} - pomiary"
         )
@@ -631,18 +631,18 @@ for config in CONFIGS:
     plt.ylabel(Y_LABEL, fontsize=70)
     plt.title(TITLE, fontsize=80)
 
-    ax.xaxis.set_major_locator(MultipleLocator(5))
-    ax.xaxis.set_minor_locator(MultipleLocator(1))
-    ax.minorticks_off()
-    ax.yaxis.set_major_locator(MultipleLocator(0.0001))
-    ax.yaxis.set_minor_locator(MultipleLocator(0.00001))
+    ax.xaxis.set_major_locator(MultipleLocator(0.5))
+    ax.xaxis.set_minor_locator(MultipleLocator(0.1))
+    
+    ax.yaxis.set_major_locator(MultipleLocator(50))
+    ax.yaxis.set_minor_locator(MultipleLocator(10))
 
     ax.grid(which='major', linestyle='-', alpha=0.5)
     ax.grid(which='minor', linestyle=':', alpha=0.3)
 
     handles, labels = ax.get_legend_handles_labels()
     unique = dict(zip(labels, handles))
-    plt.legend(unique.values(), unique.keys(), fontsize=60, markerscale=1)
+    plt.legend(unique.values(), unique.keys(), fontsize=60, markerscale=5)
 
     plt.tight_layout()
 
